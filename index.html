@@ -37,21 +37,10 @@
             border-radius: 1px;
         }
 
-        .profile-icon {
-            width: 82px;
-            height: 82px;
-            margin: 22px auto 12px;
-            display: block;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid #dbdbdb;
-            padding: 2px;
-            background: #fff;
-        }
-
+        /* Logo de texto oficial con margen ajustado */
         .logo-text { 
             width: 175px; 
-            margin: 12px auto 20px; 
+            margin: 45px auto 25px; 
             display: block; 
         }
 
@@ -76,7 +65,7 @@
 
         button { 
             width: 100%; 
-            background-color: #0095f6; /* Color azul oficial */
+            background-color: #0095f6; /* Azul oficial de Instagram */
             border: 1px solid transparent;
             color: white; 
             padding: 5px 9px; 
@@ -87,6 +76,8 @@
             margin-top: 8px; 
             margin-bottom: 20px; 
         }
+
+        button:active { opacity: 0.8; }
 
         .forgot { 
             font-size: 12px; 
@@ -113,6 +104,7 @@
             font-weight: 600;
         }
 
+        /* Responsive para celulares */
         @media (max-width: 450px) {
             body { background-color: white; }
             .login-box, .signup-box { border: none; }
@@ -123,8 +115,6 @@
 <body>
     <div class="main-container">
         <div class="login-box">
-            <img src="https://i.postimg.cc/fb17P58L/images.jpg" class="profile-icon" alt="Profile Icon">
-            
             <img src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a2511109452.png" class="logo-text" alt="Instagram">
             
             <div class="form-container">
