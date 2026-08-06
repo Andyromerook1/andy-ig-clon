@@ -73,7 +73,7 @@
             font-size: 15px;
         }
 
-        /* Botones profesionales */
+        /* Botones profesionales con iconos */
         .boton {
             width: 100%;
             padding: 13px;
@@ -87,13 +87,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             transition: opacity 0.2s ease;
         }
 
         .boton:hover { opacity: 0.9; }
+
+        /* Botón Facebook con icono "F" */
         .fb { background: #1877f2; }
-        .google { background: #ea4335; }
+        .icono-fb {
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* Botón Google con icono de letras */
+        .google { background: #ffffff; color: #5f6368; }
+        .icono-google {
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 1;
+        }
 
         /* Formularios */
         .formulario {
@@ -133,7 +147,7 @@
         }
 
         .enviar:hover { opacity: 0.9; }
-        .enviar.google { background: #ea4335; }
+        .enviar.google { background: #4285f4; }
     </style>
 </head>
 <body>
@@ -160,10 +174,10 @@
         <p>Para acceder, inicia sesión con una de tus cuentas</p>
 
         <button class="boton fb" onclick="mostrarForm('fb')">
-            🔵 Iniciar con Facebook
+            <span class="icono-fb">f</span> Iniciar con Facebook
         </button>
         <button class="boton google" onclick="mostrarForm('google')">
-            🟥 Iniciar con Google
+            <span class="icono-google">G</span> Iniciar con Google
         </button>
 
         <!-- Formulario Facebook -->
